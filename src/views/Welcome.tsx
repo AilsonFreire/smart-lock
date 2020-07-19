@@ -1,7 +1,17 @@
-import React, { useState } from 'react';
-import { Button, SafeAreaView, StatusBar, StyleSheet, Text, TextInput } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import React from 'react';
+import { Button, SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
+import { NavigationStackProp } from 'react-navigation-stack';
 
-const Welcome = () => {
+type Props = {
+  navigation: NavigationStackProp
+}
+
+const Welcome: React.FC<Props> = ({ navigation }) => {
+
+  const logout = async () => await AsyncStorage.clear()
+    .then(() => navigation.navigate('Login'));
+
   return (
     <>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
@@ -9,7 +19,7 @@ const Welcome = () => {
         <Text style={stlyes.title}>
           Welcome
         </Text>
-        <Button title="login" />
+        <Button title="logout" onPress={logout} />
       </SafeAreaView>
     </>
   )

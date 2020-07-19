@@ -1,13 +1,22 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import React, { useState } from 'react';
 import { Button, SafeAreaView, StatusBar, StyleSheet, Text, TextInput } from 'react-native';
+import { NavigationStackProp } from 'react-navigation-stack';
 
-const Login = () => {
+type Props = {
+  navigation: NavigationStackProp
+}
+
+const Login: React.FC<Props> = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleEmail = (email: string) => setEmail(email);
 
   const handlePassword = (password: string) => setPassword(password);
+
+  const login = async () => await AsyncStorage.setItem('userToken', 'abc')
+    .then(() => navigation.navigate('Welcome'));
 
   return (
     <>
@@ -30,7 +39,7 @@ const Login = () => {
           style={stlyes.input}
           value={password}
         />
-        <Button title="login" />
+        <Button title="login" onPress={login} />
       </SafeAreaView>
     </>
   )
