@@ -36,6 +36,8 @@ const Login = () => {
   )
 }
 
+export default Login;
+
 const stlyes = StyleSheet.create({
   container: {
     alignItems: "center",
@@ -56,4 +58,3 @@ const stlyes = StyleSheet.create({
     marginVertical: 10
   }
 })
-export default Login;
