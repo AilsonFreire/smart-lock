@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { useState } from 'react';
-import { Button, SafeAreaView, StatusBar, StyleSheet, Text, TextInput } from 'react-native';
+import { Alert, Button, SafeAreaView, StatusBar, StyleSheet, Text, TextInput } from 'react-native';
 import { NavigationStackProp } from 'react-navigation-stack';
 
 type Props = {
@@ -15,8 +15,14 @@ const Login: React.FC<Props> = ({ navigation }) => {
 
   const handlePassword = (password: string) => setPassword(password);
 
-  const login = async () => await AsyncStorage.setItem('userToken', 'abc')
-    .then(() => navigation.navigate('Welcome'));
+  const login = async () => {
+    if (!email || !password) {
+      Alert.alert("Preencha todos os campos");
+      return;
+    }
+    await AsyncStorage.setItem('userToken', 'abc')
+      .then(() => navigation.navigate('Welcome'));
+  }
 
   return (
     <>
